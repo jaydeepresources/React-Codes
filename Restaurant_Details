@@ -1,0 +1,38 @@
+Restaurant_Details JSON Schema
+
+{
+     "restaurantId": 0,
+     "restaurantName": "I Amsterdam",
+     "restaurantSpeciality":"European, Modern Indian, Asian",
+     "restaurantImg": "https://imgmediagumlet.lbb.in/media/2019/04/5ca1aabfef1e3c35d64a480d_1554098879139.jpg?w=750&h=500&dpr=1",
+     "restaurantAddress": "257/1/1-A, Near Raj Laxmi Petrol Pump, Phase 2 Road, Hinjewadi, Pune"
+}
+{
+     "restaurantId": 0,
+     "restaurantName": "McDonald's",
+     "restaurantSpeciality":" Burgers, Fries & Shakes",
+     "restaurantImg": "https://www.foodbusinessnews.net/ext/resources/2019/10/McDonaldsPLTMeal_Lead.jpg?1571842463",
+     "restaurantAddress": " Door 5a 1, 1, NH 16 Service Rd, opposite Executive Club, Guru Nanak Colony, Vijayawada, Andhra Pradesh 520008"
+ }
+{
+     "restaurantId": 0,
+     "restaurantName": "KFC",
+     "restaurantSpeciality":" Buckets of fried chicken",
+     "restaurantImg": "https://www.zmonline.com/media/19082691/menu_catering_mobile.jpg?mode=crop&width=620&height=349&quality=60&scale=both",
+     "restaurantAddress": "  Door 42 / 1 / 52D and 52E, MG Rd, Moghalrajpuram, Labbipet, Vijayawada, Andhra Pradesh 520010"
+ }
+{
+     "restaurantId": 0,
+     "restaurantName": "Milkshake buffin",
+     "restaurantSpeciality":" MilkShakes",
+     "restaurantImg": "https://cdn.tasteatlas.com/images/dishes/5291b5f2fcee42849cd84a03bff55e0a.jpg?mw=1300",
+     "restaurantAddress": "  Old Somalamma Temple Rd, Syamala Nagar, Gandhipuram, Rajahmundry, Andhra Pradesh 533106"
+ }
+ {
+     "restaurantId": 0,
+     "restaurantName": "Pizza Hut",
+     "restaurantSpeciality":" Pizza",
+     "restaurantImg": "https://lh5.googleusercontent.com/p/AF1QipOOxSAMyWQj4q0XL3BB_zqxbdY5NvIo-L4WVpw=w408-h306-k-no",
+     "restaurantAddress": "  Level 3 PVP Square Mall 39 & 1, SN 3f & 1 & 3, MG Rd, Labbipet, Vijayawada, Andhra Pradesh 520010"
+
+ }
