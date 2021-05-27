@@ -5,21 +5,21 @@ class App extends Component {
   newId
   newName
   newPrice
-  idFlag: boolean
-  nameFlag: boolean
-  priceFlag: boolean
+  idFlag
+  nameFlag
+  priceFlag
 
   constructor() {
     super();
     this.state = {
       buttonFlag: true,
-      idIcon: "fas fa-sort",
-      nameIcon: "fas fa-sort",
-      priceIcon: "fas fa-sort",
+      idIcon: "unfold_more",
+      nameIcon: "unfold_more",
+      priceIcon: "unfold_more",
       books: [
-        { id: 100, name: "Python", price: "500" },
-        { id: 300, name: "Html", price: "100" },
-        { id: 200, name: "Node JS", price: "350" },
+        { id: 100, name: "Python", price: 500 },
+        { id: 300, name: "Html", price: 100 },
+        { id: 200, name: "Node JS", price: 350 },
       ]
     };
   }
@@ -31,10 +31,7 @@ class App extends Component {
         <td>{book.id}</td>
         <td>{book.name}</td>
         <td>{book.price}</td>
-        <td> <button className="btn btn-link" onClick=
-          {() => this.deleteBook(index)}>
-          <i className="fas fa-times text-danger"></i>
-        </button>
+        <td> <button className="btn material-icons text-danger" onClick={() => this.deleteBook(index)}>clear</button>
         </td>
       </tr>
     )
@@ -44,9 +41,9 @@ class App extends Component {
   addBook() {
 
     var newBook = {
-      id: this.newId.value,
+      id: parseInt(this.newId.value),
       name: this.newName.value,
-      price: this.newPrice.value
+      price: parseFloat(this.newPrice.value)
     }
     var list = this.state.books
 
@@ -81,16 +78,16 @@ class App extends Component {
     else if (this.idFlag !== undefined)
       this.idFlag = !this.idFlag
 
-    if (this.idFlag) { 
+    if (this.idFlag) {
       localBooks.sort((a, b) => { return a.id - b.id })
-      this.setState({ idIcon: "fas fa-sort-up" })
+      this.setState({ idIcon: "arrow_upward" })
     }
 
     else if (!this.idFlag) {
       localBooks.sort((a, b) => { return b.id - a.id })
-      this.setState({ idIcon: "fas fa-sort-down" })
+      this.setState({ idIcon: "arrow_downward" })
     }
-    this.setState({ books: localBooks, nameIcon: "fas fa-sort", priceIcon: "fas fa-sort" })
+    this.setState({ books: localBooks, nameIcon: "unfold_more", priceIcon: "unfold_more" })
   }
 
   sortByName() {
@@ -103,16 +100,15 @@ class App extends Component {
       this.nameFlag = !this.nameFlag
 
     if (this.nameFlag) {
-      localBooks.sort((a, b) => { return a.name > b.name })
-      this.setState({ nameIcon: "fas fa-sort-up" })
+      localBooks.sort((a, b) => { return (a.name > b.name) ? 1 : (a.name < b.name) ? -1 : 0 })
+      this.setState({ nameIcon: "arrow_upward" })
     }
 
     else if (!this.nameFlag) {
-      localBooks.sort((a, b) => { return b.name > a.name })
-      this.setState({ nameIcon: "fas fa-sort-down" })
+      localBooks.sort((a, b) => { return (a.name > b.name) ? -1 : (a.name < b.name) ? 1 : 0 })
+      this.setState({ nameIcon: "arrow_downward" })
     }
-
-    this.setState({ books: localBooks, idIcon: "fas fa-sort", priceIcon: "fas fa-sort" })
+    this.setState({ books: localBooks, idIcon: "unfold_more", priceIcon: "unfold_more" })
   }
 
   sortByPrice() {
@@ -124,22 +120,22 @@ class App extends Component {
     else if (this.priceFlag !== undefined)
       this.priceFlag = !this.priceFlag
 
-    if (this.priceFlag) { // asc
+    if (this.priceFlag) {
       localBooks.sort((a, b) => { return a.price - b.price })
-      this.setState({ priceIcon: "fas fa-sort-up" })
+      this.setState({ priceIcon: "arrow_upward" })
     }
 
     else if (!this.priceFlag) {
       localBooks.sort((a, b) => { return b.price - a.price })
-      this.setState({ priceIcon: "fas fa-sort-down" })
+      this.setState({ priceIcon: "arrow_downward" })
     }
-    this.setState({ books: localBooks, idIcon: "fas fa-sort", nameIcon: "fas fa-sort" })
+    this.setState({ books: localBooks, idIcon: "unfold_more", nameIcon: "unfold_more" })
   }
 
   render() {
     return (
       <div className="container">
-        <div className="jumbotron py-3 my-4">
+        <div className="my-4">
           <p className="display-4 text-center mb-0">Book Store</p>
         </div>
 
@@ -148,21 +144,27 @@ class App extends Component {
             <tr>
               <th scope="col">S.No</th>
               <th scope="col">
-                <button className="btn btn-link p-0" onClick={() => this.sortById()}>
-                  <span className="mr-2">Id</span>
-                  <i className={this.state.idIcon}></i>
+                <button className="btn p-0" onClick={() => this.sortById()}>
+                  <div className="d-flex justify-content-around align-items-center">
+                    <span className="mr-2">Id</span>
+                    <i className="material-icons">{this.state.idIcon}</i>
+                  </div>
                 </button>
               </th>
               <th scope="col">
-                <button className="btn btn-link p-0" onClick={() => this.sortByName()}>
-                  <span className="mr-2">Name</span>
-                  <i className={this.state.nameIcon}></i>
+                <button className="btn p-0" onClick={() => this.sortByName()}>
+                  <div className="d-flex justify-content-around align-items-center">
+                    <span className="mr-2">Name</span>
+                    <i className="material-icons">{this.state.nameIcon}</i>
+                  </div>
                 </button>
               </th>
               <th scope="col">
-                <button className="btn btn-link p-0" onClick={() => this.sortByPrice()}>
-                  <span className="mr-2">Price</span>
-                  <i className={this.state.priceIcon}></i>
+                <button className="btn p-0" onClick={() => this.sortByPrice()}>
+                  <div className="d-flex justify-content-around align-items-center">
+                    <span className="mr-2">Price</span>
+                    <i className="material-icons">{this.state.priceIcon}</i>
+                  </div>
                 </button></th>
 
               <th scope="col"></th>
@@ -181,8 +183,8 @@ class App extends Component {
           <input type="text" className="form-control mx-1" placeholder="Enter new Price"
             ref={(input2) => this.newPrice = input2} onInput={() => this.textChanged()} />
 
-          <button className="btn btn-primary mr-2" onClick={() => this.addBook()} disabled={this.state.buttonFlag} >
-            <i className="fas fa-plus"></i>
+          <button className="btn btn-primary mr-2 material-icons" onClick={() => this.addBook()} disabled={this.state.buttonFlag} >
+            add
           </button>
         </div>
       </div>
