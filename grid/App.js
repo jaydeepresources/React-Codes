@@ -1,71 +1,173 @@
 import React, { Component } from 'react';
+import './App.css';
 
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
-      gridData: [[{ value: "", flag: false }, { value: "", flag: false }, { value: "", flag: false }], [{ value: "", flag: false }, { value: "", flag: false }, { value: "", flag: false }], [{ value: "", flag: false }, { value: "", flag: false }, { value: "", flag: false }]],
-      playerNumber: 1
+      data: [['', '', ''], ['', '', ''], ['', '', '']],
+      flag: null,
+      winnerMsg: ''
     }
   }
 
-  gridClicked(i, j) {
-    var localGridData
-    localGridData = this.state.gridData
+  setValue(row, col) {
+    var data = []
+    var flag
 
-    if (this.state.playerNumber === 1) {
-      this.setState({ playerNumber: 2 })
-      localGridData[i][j] = { value: "X", flag: true }
-    }
+    Object.assign(data, this.state.data)
+    flag = this.state.flag
 
-    else if (this.state.playerNumber === 2) {
-      this.setState({ playerNumber: 1 })
-      localGridData[i][j] = { value: "O", flag: true }
-    }
-    this.setState({ gridData: localGridData }, () => this.calculateResult())
+    if (flag === null)
+      flag = true
+
+    else
+      flag = !flag
+
+
+    data[row][col] = (flag) ? 'X' : 'O'
+
+    this.setState({
+      data: data,
+      flag: flag
+    })
+    this.calculateResultX()
+    this.calculateResultY()
+    this.calculateResultDiagonalX()
+    this.calculateResultDiagonalY()
   }
 
-  displayInnerGrid(data, i) {
-    const innerGridUI = data.map((innerData, index) =>
-      <td className="text-center" key={index}>
-        <button className="btn btn-block" onClick={() => this.gridClicked(i, index)} disabled={this.state.gridData[i][index].flag}>
-          <i className={(data[index].value === "X") ? "fas fa-times text-success" : (data[index].value === "O") ? "far fa-circle text-danger" : ""}></i>
-        </button>
-      </td>
-    )
-    return innerGridUI
+  calculateResultX() {
+    var countX = 0
+    var countY = 0
+
+    for (var j = 0; j < 3; j++) {
+      countX = 0
+      countY = 0
+      for (var i = 0; i < 3; i++) {
+        if (this.state.data[j][i] === 'X')
+          countX++
+        if (this.state.data[j][i] === 'O')
+          countY++
+      }
+      if (countX === 3)
+        this.setState({
+          winnerMsg: 'Player 1 Wins !'
+        })
+      if (countY === 3)
+        this.setState({
+          winnerMsg: 'Player 2 Wins !'
+        })
+    }
   }
 
-  displayGrid() {
-    const gridUI = this.state.gridData.map((data, index) =>
-      <tr className="" key={index}>
-        {
-          this.displayInnerGrid(data, index)
+  calculateResultY() {
+    var countX = 0
+    var countY = 0
+
+    for (var j = 0; j < 3; j++) {
+      countX = 0
+      countY = 0
+      for (var i = 0; i < 3; i++) {
+        if (this.state.data[i][j] === 'X')
+          countX++
+        if (this.state.data[i][j] === 'O')
+          countY++
+      }
+      if (countX === 3)
+        this.setState({
+          winnerMsg: 'Player 1 Wins !'
+        })
+      if (countY === 3)
+        this.setState({
+          winnerMsg: 'Player 2 Wins !'
+        })
+    }
+  }
+
+  calculateResultDiagonalX() {
+    var countX = 0
+    var countY = 0
+
+    for (var j = 0; j < 3; j++) {
+
+      for (var i = 0; i < 3; i++) {
+        if (i === j) {
+          if (this.state.data[i][j] === 'X')
+            countX++
+          if (this.state.data[i][j] === 'O')
+            countY++
         }
-      </tr>
-    )
-    return gridUI
+      }
+      if (countX === 3)
+        this.setState({
+          winnerMsg: 'Player 1 Wins !'
+        })
+      if (countY === 3)
+        this.setState({
+          winnerMsg: 'Player 2 Wins !'
+        })
+    }
   }
 
-  calculateResult() {
- 
+  calculateResultDiagonalY() {
+    var countX = 0
+    var countY = 0
+
+    for (var j = 0; j < 3; j++) {
+
+      for (var i = 0; i < 3; i++) {
+        if (i + j === 2) {
+          if (this.state.data[i][j] === 'X')
+            countX++
+          if (this.state.data[i][j] === 'O')
+            countY++
+        }
+      }
+      if (countX === 3)
+        this.setState({
+          winnerMsg: 'Player 1 Wins !'
+        })
+      if (countY === 3)
+        this.setState({
+          winnerMsg: 'Player 2 Wins !'
+        })
+    }
+  }
+
+  mapRows() {
+    const rows = this.state.data.map((r, index) =>
+      <div className="row" key={index}>
+        {this.mapCols(r,index)}
+      </div>
+    )
+
+    return rows
+  }
+
+  mapCols(row, rowIndex) {
+    const cols = row.map((c, index) =>
+      <div className="col-sm-4 bg-primary p-1 border border-white" key={index}>
+        <button className="btn btn-light my-button material-icons" disabled={c !== ''} onClick={() => this.setValue(rowIndex, index)}>{(c === 'X') ? 'clear' : (c === 'O') ? 'radio_button_unchecked' : ''}</button>
+      </div>
+    )
+    return cols
   }
 
   render() {
     return (
       <div className="container">
-        <div className="jumbotron py-3 my-4">
-          <p className="display-4 text-center mb-0">Tic Tac Toe</p>
+        <div className="py-3 ">
+          <p className="display-4 text-center my-4">Tic Tac Toe</p>
+          <hr />
         </div>
 
-        <p className="lead">Player {this.state.playerNumber} to play</p>
+        <p className="h3 mb-4">Player {(this.state.flag) ? '2' : '1'} to play</p>
 
-        <table className="table table-bordered">
-          <tbody>
-            {this.displayGrid()}
-          </tbody>
-        </table>
+        {this.mapRows()}
+
+        <p className="h3 text-success mt-3">{this.state.winnerMsg}</p>
 
       </div>
     );
